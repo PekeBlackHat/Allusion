@@ -1,3 +1,6 @@
+# Broad, popular, corporate, or media domains.
+# These are useful as baseline sources but should not dominate niche discovery.
+
 wikipedia.org
 nytimes.com
 cnn.com
@@ -7,8 +10,17 @@ theverge.com
 techcrunch.com
 wired.com
 medium.com
+scientificamerican.com
+kdnuggets.com
+datacamp.com
+
 ibm.com
 microsoft.com
 google.com
 aws.amazon.com
 oracle.com
+nvidia.com
+meta.com
+openai.com
+anthropic.com
+deepmind.google

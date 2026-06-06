@@ -1,3 +1,5 @@
+# Domains skipped by default to reduce noise.
+# Users can allow some of these later with --include-social if desired.
 youtube.com
 youtu.be
 tiktok.com
@@ -6,3 +8,5 @@ facebook.com
 x.com
 twitter.com
 pinterest.com
+reddit.com
+quora.com

@@ -62,6 +62,8 @@ HIGH_SIGNAL_DOMAINS = load_word_set("high_signal_domains.txt")
 
 BLOCKED_DOMAINS = load_word_set("blocked_domains.txt")
 
+IGNORED_ALLUSION_TERMS = load_word_set("ignored_allusion_terms.txt")
+
 
 class SearchResult(BaseModel):
     title: str
@@ -383,9 +385,121 @@ class AllusionAgent:
         )
 
 
+def detect_query_mode(topic: str) -> str:
+    text = topic.lower()
+
+    mode_terms = {
+        "ai_technical": [
+            "ai",
+            "agent",
+            "agents",
+            "llm",
+            "machine learning",
+            "deep learning",
+            "reinforcement",
+            "neuroevolution",
+            "artificial life",
+            "open ended",
+            "open-ended",
+            "autonomous",
+            "algorithm",
+            "model",
+            "neural",
+        ],
+        "software": [
+            "github",
+            "open source",
+            "open-source",
+            "framework",
+            "library",
+            "toolkit",
+            "api",
+            "developer",
+            "repository",
+            "code",
+            "package",
+        ],
+        "psychology_social": [
+            "psychology",
+            "psychological",
+            "behavior",
+            "behaviour",
+            "identity",
+            "motivation",
+            "personality",
+            "cognition",
+            "mental health",
+            "social",
+            "development",
+            "longitudinal",
+        ],
+        "biomedical_neuroscience": [
+            "eeg",
+            "brain",
+            "neuroscience",
+            "clinical",
+            "medical",
+            "biomarker",
+            "patient",
+            "diagnosis",
+            "pac",
+            "cfc",
+            "neural signal",
+            "electrophysiology",
+        ],
+        "business_policy": [
+            "startup",
+            "market",
+            "industry",
+            "policy",
+            "regulation",
+            "economics",
+            "finance",
+            "adoption",
+            "risk",
+            "governance",
+        ],
+    }
+
+    scores = {
+        mode: sum(1 for term in terms if term in text)
+        for mode, terms in mode_terms.items()
+    }
+
+    best_mode, best_score = max(scores.items(), key=lambda item: item[1])
+
+    return best_mode if best_score > 0 else "general"
+
+
 def expand_query(topic: str) -> str:
     topic = topic.strip()
-    return f"{topic} github arxiv open source prototype research experimental"
+    mode = detect_query_mode(topic)
+
+    expansions = {
+        "ai_technical": (
+            "github arxiv open source research benchmark framework "
+            "experimental prototype implementation"
+        ),
+        "software": (
+            "github documentation open source framework library "
+            "implementation benchmark examples"
+        ),
+        "psychology_social": (
+            "psychology research review longitudinal study meta analysis "
+            "theory empirical evidence"
+        ),
+        "biomedical_neuroscience": (
+            "biomedical research clinical study review meta analysis "
+            "methods dataset evidence"
+        ),
+        "business_policy": (
+            "industry report policy analysis market research adoption "
+            "risk governance case study"
+        ),
+        "general": ("research review analysis study evidence overview"),
+    }
+
+    return f"{topic} {expansions.get(mode, expansions['general'])}"
 
 
 def domain_of(url: str) -> str:
@@ -450,31 +564,47 @@ def discover_mainstream_signals(docs: List[SourceDoc], limit: int = 5) -> List[s
     return signals or ["No obvious mainstream baseline sources detected."]
 
 
-def discover_allusions(docs: List[SourceDoc], limit: int = 6) -> List[str]:
-    """
-    'Allusions' are soft observations: hints that multiple sources point toward
-    the same hidden pattern. This is deliberately extractive, not hallucinated.
-    """
+def discover_allusions(docs: List[SourceDoc], limit: int = 6):
+
     combined_keywords = []
+
     for doc in docs:
-        combined_keywords.extend(doc.keywords[:6])
+        combined_keywords.extend(
+            [kw for kw in doc.keywords[:10] if kw not in IGNORED_ALLUSION_TERMS]
+        )
 
     counts = Counter(combined_keywords)
+
     pairs = []
-    for a, count_a in counts.most_common(12):
-        for b, count_b in counts.most_common(12):
+
+    for a, count_a in counts.most_common(20):
+        for b, count_b in counts.most_common(20):
+
             if a >= b:
                 continue
+
             if a in b or b in a:
                 continue
-            pairs.append((count_a + count_b, a, b))
+
+            if a in IGNORED_ALLUSION_TERMS or b in IGNORED_ALLUSION_TERMS:
+                continue
+
+            pairs.append(
+                (
+                    count_a + count_b,
+                    a,
+                    b,
+                )
+            )
 
     pairs = sorted(pairs, reverse=True)[:limit]
+
     if not pairs:
         return ["No clear hidden connections detected yet. Try a narrower topic."]
 
     return [
-        f"`{a}` repeatedly appears near `{b}`; this may be a useful connection to investigate."
+        f"`{a}` repeatedly appears near `{b}`; "
+        "this may be a useful connection to investigate."
         for _, a, b in pairs
     ]
 
@@ -964,6 +1094,11 @@ def render_markdown_report(
         "## Search Frame",
         "",
         f"Query used: `{query}`",
+        "",
+        "**Research Note:**",
+        "",
+        "Allusion generates exploratory observations from public sources.",
+        "Verify findings against the linked sources before relying on them.",
         "",
     ]
 
