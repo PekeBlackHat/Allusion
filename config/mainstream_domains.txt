@@ -1,0 +1,14 @@
+wikipedia.org
+nytimes.com
+cnn.com
+bbc.com
+forbes.com
+theverge.com
+techcrunch.com
+wired.com
+medium.com
+ibm.com
+microsoft.com
+google.com
+aws.amazon.com
+oracle.com

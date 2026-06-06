@@ -35,151 +35,32 @@ import trafilatura
 from bs4 import BeautifulSoup
 from ddgs import DDGS
 from pydantic import BaseModel, Field
+from pathlib import Path
 
-STOPWORDS = {
-    "the",
-    "and",
-    "for",
-    "that",
-    "with",
-    "this",
-    "from",
-    "into",
-    "your",
-    "you",
-    "are",
-    "was",
-    "were",
-    "will",
-    "can",
-    "has",
-    "have",
-    "had",
-    "not",
-    "but",
-    "they",
-    "their",
-    "about",
-    "more",
-    "what",
-    "when",
-    "where",
-    "which",
-    "who",
-    "how",
-    "why",
-    "use",
-    "using",
-    "used",
-    "than",
-    "then",
-    "also",
-    "its",
-    "it's",
-    "been",
-    "being",
-    "new",
-    "may",
-    "one",
-    "two",
-    "our",
-    "out",
-    "all",
-    "any",
-    "page",
-    "site",
-    "home",
-    "read",
-    "click",
-    "content",
-    "privacy",
-    "terms",
-    "cookie",
-    "cookies",
-    "login",
-    "sign",
-    "subscribe",
-    "loading",
-    "section",
-}
 
-NICHE_TERMS = {
-    "experimental",
-    "prototype",
-    "small",
-    "indie",
-    "research",
-    "preprint",
-    "early",
-    "unusual",
-    "novel",
-    "emerging",
-    "obscure",
-    "underexplored",
-    "agent",
-    "agents",
-    "multi-agent",
-    "simulation",
-    "sandbox",
-    "autonomous",
-    "reinforcement",
-    "swarm",
-    "collective",
-    "emergence",
-    "emergent",
-    "open-source",
-    "github",
-    "paper",
-    "arxiv",
-    "workshop",
-    "demo",
-    "alpha",
-    "beta",
-    "framework",
-    "environment",
-    "benchmark",
-    "repository",
-    "repo",
-}
+def load_word_set(filename: str) -> set[str]:
+    path = Path("config") / filename
 
-MAINSTREAM_DOMAINS = {
-    "wikipedia.org",
-    "nytimes.com",
-    "cnn.com",
-    "bbc.com",
-    "forbes.com",
-    "theverge.com",
-    "techcrunch.com",
-    "wired.com",
-    "medium.com",
-    "ibm.com",
-    "microsoft.com",
-    "google.com",
-    "aws.amazon.com",
-    "oracle.com",
-}
+    if not path.exists():
+        print(f"[warning] Missing config file: {path}")
+        return set()
 
-HIGH_SIGNAL_DOMAINS = {
-    "github.com",
-    "arxiv.org",
-    "openreview.net",
-    "paperswithcode.com",
-    "huggingface.co",
-    "gitlab.com",
-    "aclanthology.org",
-    "neurips.cc",
-}
+    return {
+        line.strip().lower()
+        for line in path.read_text(encoding="utf-8").splitlines()
+        if line.strip() and not line.startswith("#")
+    }
 
-BLOCKED_DOMAINS = {
-    "youtube.com",
-    "youtu.be",
-    "tiktok.com",
-    "instagram.com",
-    "facebook.com",
-    "x.com",
-    "twitter.com",
-    "pinterest.com",
-}
+
+STOPWORDS = load_word_set("stopwords.txt")
+
+NICHE_TERMS = load_word_set("niche_terms.txt")
+
+MAINSTREAM_DOMAINS = load_word_set("mainstream_domains.txt")
+
+HIGH_SIGNAL_DOMAINS = load_word_set("high_signal_domains.txt")
+
+BLOCKED_DOMAINS = load_word_set("blocked_domains.txt")
 
 
 class SearchResult(BaseModel):
