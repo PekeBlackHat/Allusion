@@ -389,6 +389,12 @@ class AllusionAgent:
             niche_reasons=[reason],
         )
 
+    # Allusion favors niche, research-oriented sources.
+    # The goal is discovery rather than popularity.
+    # Scores are heuristic and intentionally biased toward
+    # repositories, preprints, experimental work, and
+    # early-stage technical projects.
+
     def score_source(self, doc: SourceDoc) -> None:
         text = f"{doc.title or ''} {doc.snippet or ''} {doc.text or ''}".lower()
         reasons: List[str] = []
@@ -602,6 +608,13 @@ def evidence_titles(
 ) -> List[str]:
     matches = [doc.title for doc in docs if source_mentions(doc, terms)]
     return matches[:limit]
+
+
+# Observation Engine
+#
+# Converts source clusters into analyst-style observations.
+# Observations must be evidence-backed and derived from
+# fetched sources rather than generated speculation.
 
 
 def generate_observations(
@@ -826,6 +839,18 @@ def generate_observations(
     return observations[:limit]
 
 
+# Domain routing system.
+#
+# Attempts to classify the topic into a known analytical
+# domain so findings can be tailored to the source material.
+#
+# Current domains:
+# - eeg
+# - rl_evolution
+# - multi_agent
+# - general (fallback when no strong domain signals are detected)
+
+
 def detect_topic_domain(topic: str, docs: List[SourceDoc]) -> str:
     text = " ".join(
         [topic] + [f"{d.title or ''} {d.snippet or ''} {d.text or ''}" for d in docs]
@@ -869,6 +894,14 @@ def detect_topic_domain(topic: str, docs: List[SourceDoc]) -> str:
     best_domain, best_score = max(scores.items(), key=lambda item: item[1])
 
     return best_domain if best_score > 0 else "general"
+
+
+# Analytical Findings Engine
+#
+# Produces higher-level synthesis from retrieved sources.
+# Unlike observations, findings attempt to identify
+# implications, opportunities, and recurring research
+# directions within a specific domain.
 
 
 def generate_analytical_findings(
@@ -1020,6 +1053,12 @@ def build_cautions(docs: List[SourceDoc]) -> List[str]:
         "This agent only analyzes public pages and should not be treated as authoritative research."
     )
     return cautions
+
+
+# Report Renderer
+#
+# Converts structured Allusion output into a human-readable
+# research brief suitable for archiving or sharing.
 
 
 def render_markdown_report(
