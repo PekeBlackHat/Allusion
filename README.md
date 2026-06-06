@@ -1,8 +1,10 @@
 # Allusion
 
-**Allusion** is a privacy-friendly research scout for discovering emerging ideas, hidden patterns, and niche technical projects across the public web.
+**Allusion** is a research scout for discovering emerging ideas, hidden patterns, and underexplored technical opportunities across the public web.
 
-Rather than answering questions directly, Allusion explores a topic, gathers public sources, identifies recurring signals, and generates analytical research reports.
+Instead of answering questions directly, Allusion explores a topic, analyzes public sources, identifies recurring signals, and generates structured research reports.
+
+---
 
 ## Why Allusion?
 
@@ -14,108 +16,103 @@ Allusion attempts to answer:
 
 > What is emerging?
 
-The goal is to help researchers, engineers, students, founders, and curious builders identify promising directions before they become mainstream.
+Its goal is to help researchers, engineers, students, founders, and curious builders discover promising directions before they become mainstream.
 
 ---
 
 ## Features
 
 * Public web exploration
-* Research-oriented source discovery
+* Source discovery and ranking
 * Niche signal detection
-* Open-source project discovery
 * Analytical findings
 * Pattern extraction
+* Research observations
 * Markdown intelligence reports
 * Privacy-first design
 
 ---
 
-## Example Workflow
-
-Topic:
+## Quick Start
 
 ```bash
-python allusion.py "phase amplitude coupling statistical significance EEG classification"
-```
+git clone https://github.com/PekeBlackHat/Allusion.git
 
-Pipeline:
-
-```text
-Query
-↓
-Search
-↓
-Fetch
-↓
-Extract
-↓
-Score
-↓
-Observe
-↓
-Synthesize
-↓
-Report
-```
-
-Output:
-
-* Analytical Findings
-* Observations
-* Niche Signals
-* Repeated Themes
-* Ranked Sources
-
----
-
-## Installation
-
-```bash
-git clone https://github.com/yourname/allusion.git
-
-cd allusion
+cd Allusion
 
 pip install -r requirements.txt
 ```
 
 ---
 
-## Usage
-
-Basic:
+## Example Query
 
 ```bash
-python allusion.py "underexplored AI agent architectures"
+python allusion.py "underexplored AI agent architectures" --max-results 15 --verbose
 ```
 
-Verbose:
+Allusion will:
+
+```text
+Query
+↓
+Search
+↓
+Extract
+↓
+Analyze
+↓
+Synthesize
+↓
+Report
+```
+
+Example outputs include:
+
+* Analytical Findings
+* Research Observations
+* What Looks Niche
+* Repeated Themes
+* Ranked Sources
+
+Example findings:
+
+> LLM-agent coordination appears to be the strongest signal.
+
+> High-niche sources outweigh mainstream coverage.
+
+> Early-stage work is present.
+
+---
+
+## Additional Examples
 
 ```bash
 python allusion.py "open ended evolution autonomous agents" --max-results 20 --verbose
 ```
 
-Research Query:
+```bash
+python allusion.py "phase amplitude coupling statistical significance EEG classification" --max-results 20 --verbose
+```
 
 ```bash
-python allusion.py "phase amplitude coupling statistical significance EEG classification"
+python allusion.py "machine learning ideas abandoned before GPU era" --max-results 20 --verbose
 ```
 
 ---
 
 ## Privacy
 
-Allusion only analyzes publicly accessible webpages.
+Allusion only analyzes publicly accessible information.
 
-It does not:
+It does not access:
 
-* Access email
-* Access calendars
-* Access contacts
-* Access private accounts
-* Access private files
-* Bypass authentication
-* Scrape content behind logins
+* Email
+* Contacts
+* Calendars
+* Private accounts
+* Private files
+* Content behind authentication
 
 ---
 
