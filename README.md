@@ -35,6 +35,11 @@ Its goal is to help researchers, engineers, students, founders, and curious buil
 
 ## Quick Start
 
+- Python 3.10+
+- Internet connection
+
+Install dependencies:
+
 ```bash
 git clone https://github.com/PekeBlackHat/Allusion.git
 

@@ -35,7 +35,6 @@ import trafilatura
 from bs4 import BeautifulSoup
 from ddgs import DDGS
 from pydantic import BaseModel, Field
-from pathlib import Path
 
 
 def load_word_set(filename: str) -> set[str]:
