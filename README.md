@@ -1,8 +1,8 @@
 # Allusion
 
-**Allusion** is a research scout for discovering emerging ideas, hidden patterns, and underexplored technical opportunities across the public web.
+**Allusion** is a research scout for discovering emerging ideas, hidden patterns, and underexplored opportunities across the public web.
 
-Instead of answering questions directly, Allusion explores a topic, analyzes public sources, identifies recurring signals, and generates structured research reports.
+Instead of answering questions directly, Allusion explores a topic, gathers public sources, detects recurring signals, and builds a structured research map that helps users investigate a field more efficiently.
 
 ---
 
@@ -14,7 +14,7 @@ Most search tools answer:
 
 Allusion attempts to answer:
 
-> What is emerging?
+> What is worth investigating?
 
 Its goal is to help researchers, engineers, students, founders, and curious builders discover promising directions before they become mainstream.
 
@@ -25,20 +25,22 @@ Its goal is to help researchers, engineers, students, founders, and curious buil
 * Public web exploration
 * Source discovery and ranking
 * Niche signal detection
-* Analytical findings
-* Pattern extraction
 * Research observations
-* Markdown intelligence reports
+* Repeated theme extraction
+* Emerging topic discovery
+* Markdown research reports
 * Privacy-first design
 
 ---
 
 ## Quick Start
 
-- Python 3.10+
-- Internet connection
+### Requirements
 
-Install dependencies:
+* Python 3.10+
+* Internet connection
+
+### Installation
 
 ```bash
 git clone https://github.com/PekeBlackHat/Allusion.git
@@ -48,15 +50,32 @@ cd Allusion
 pip install -r requirements.txt
 ```
 
+### Launch the Web Interface
+
+```bash
+python -m streamlit run app.py
+```
+
 ---
 
 ## Example Query
 
-```bash
-python allusion.py "underexplored AI agent architectures" --max-results 15 --verbose
+```text
+underexplored AI agent architectures
 ```
 
-Allusion will:
+Allusion explores public sources and produces:
+
+* Ranked Sources
+* Research Observations
+* What Looks Niche
+* Repeated Themes
+* Source Keywords
+* Research Leads
+
+---
+
+## Research Workflow
 
 ```text
 Query
@@ -65,50 +84,67 @@ Search
 ↓
 Extract
 ↓
-Analyze
+Score
 ↓
-Synthesize
+Observe
+↓
+Rank
 ↓
 Report
 ```
 
-Example outputs include:
+---
 
-* Analytical Findings
-* Research Observations
-* What Looks Niche
-* Repeated Themes
-* Ranked Sources
+## Example Research Questions
 
-Example findings:
+### AI & Autonomous Systems
 
-> LLM-agent coordination appears to be the strongest signal.
+```text
+future of AI agents
+```
 
-> High-niche sources outweigh mainstream coverage.
+```text
+open ended evolution autonomous agents
+```
 
-> Early-stage work is present.
+### Neuroscience & EEG
+
+```text
+phase amplitude coupling EEG feature engineering
+```
+
+### Psychology
+
+```text
+competing theories of intelligence psychology neuroscience
+```
+
+### Scientific Discovery
+
+```text
+underexplored research areas with strong evidence but low adoption
+```
 
 ---
 
-## Additional Examples
+## What Makes Allusion Different?
 
-```bash
-python allusion.py "open ended evolution autonomous agents" --max-results 20 --verbose
-```
+Allusion is designed to prioritize:
 
-```bash
-python allusion.py "phase amplitude coupling statistical significance EEG classification" --max-results 20 --verbose
-```
+* Research papers
+* Open-source repositories
+* Technical reports
+* Academic sources
+* Emerging projects
+* High-signal domains
 
-```bash
-python allusion.py "machine learning ideas abandoned before GPU era" --max-results 20 --verbose
-```
+Rather than simply summarizing information, it attempts to surface useful sources, recurring themes, and potential research directions.
 
 ---
 
 ## Privacy
 
-Allusion only analyzes publicly accessible information.
+Allusion analyzes only publicly accessible information.
 
 It does not access:
 
@@ -121,10 +157,20 @@ It does not access:
 
 ---
 
+## Limitations
+
+Allusion is an exploratory research tool, not an authoritative source.
+
+Research observations and detected patterns may be incomplete, incorrect, or speculative.
+
+Users should review the ranked sources and verify important conclusions independently.
+
+---
+
 ## Philosophy
 
 Allusion is not a chatbot.
 
 It is a research scout.
 
-Its purpose is to reveal signals, patterns, and opportunities hidden across public technical information.
+Its purpose is to reveal signals, sources, patterns, and opportunities hidden across public technical information.

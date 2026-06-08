@@ -351,8 +351,10 @@ class AllusionAgent:
         niche_signals = discover_niche_signals(valid_docs)
         mainstream_signals = discover_mainstream_signals(valid_docs)
         allusions = discover_allusions(valid_docs)
-        observations = generate_observations(valid_docs, topic)
-        analytical_findings = generate_analytical_findings(valid_docs, topic)
+        # observations = generate_observations(valid_docs, topic)
+        # analytical_findings = generate_analytical_findings(valid_docs, topic)
+        observations = []
+        analytical_findings = []
         cautions = build_cautions(docs)
 
         markdown = render_markdown_report(
@@ -1101,25 +1103,25 @@ def render_markdown_report(
         "",
     ]
 
-    lines += [
-        "## Analytical Findings",
-        "",
-    ]
+    # lines += [
+    #     "## Analytical Findings",
+    #     "",
+    # ]
 
-    for finding in analytical_findings:
-        lines += [
-            f"### {finding.title}",
-            f"- Confidence: {finding.confidence:.2f}",
-            f"- Finding: {finding.finding}",
-            f"- Implication: {finding.implication}",
-        ]
+    # for finding in analytical_findings:
+    #     lines += [
+    #         f"### {finding.title}",
+    #         f"- Confidence: {finding.confidence:.2f}",
+    #         f"- Finding: {finding.finding}",
+    #         f"- Implication: {finding.implication}",
+    #     ]
 
-        if finding.evidence:
-            lines.append("- Evidence:")
-            for item in finding.evidence:
-                lines.append(f"  - {item}")
+    #     if finding.evidence:
+    #         lines.append("- Evidence:")
+    #         for item in finding.evidence:
+    #             lines.append(f"  - {item}")
 
-        lines.append("")
+    #     lines.append("")
 
     lines += [
         "## Observations",
