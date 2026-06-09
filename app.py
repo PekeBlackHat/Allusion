@@ -5,7 +5,7 @@ LOGO_PATH = "assets/allusion_logo.png"
 
 st.set_page_config(
     page_title="Allusion",
-    page_icon="🌿",
+    page_icon="📜",
     layout="wide",
 )
 
