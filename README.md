@@ -97,35 +97,90 @@ Report
 
 ## Example Research Questions
 
-### AI & Autonomous Systems
+### Technology
 
 ```text
-future of AI agents
+future of autonomous systems
 ```
 
 ```text
-open ended evolution autonomous agents
+underexplored technologies with growing adoption
 ```
 
-### Neuroscience & EEG
+### Innovation & Trends
 
 ```text
-phase amplitude coupling EEG feature engineering
+emerging ideas gaining traction across industries
 ```
 
-### Psychology
-
 ```text
-competing theories of intelligence psychology neuroscience
+early signals of technological change
 ```
 
-### Scientific Discovery
+### Science & Research
 
 ```text
-underexplored research areas with strong evidence but low adoption
+unresolved scientific questions with active research
+```
+
+```text
+competing explanations for a complex phenomenon
+```
+
+### Business & Society
+
+```text
+industries likely to be transformed by emerging technologies
+```
+
+```text
+shifts in consumer behavior and market trends
+```
+
+### Project Discovery
+
+```text
+interesting open source projects solving real-world problems
+```
+
+```text
+underexplored opportunities for builders and researchers
+```
+
+### Personal Interests & Projects
+
+```text
+underexplored approaches to a personal project
+```
+
+```text
+emerging ideas and techniques within a topic of interest
+```
+
+### General Exploration
+
+```text
+hidden patterns across public sources on a given topic
+```
+
+```text
+what researchers, developers, and communities are discussing before it becomes mainstream
 ```
 
 ---
+
+### Trend Exploration
+
+```text
+emerging trends in renewable energy storage
+```
+
+```text
+niche communities driving new consumer technologies
+```
+
+---
+
 
 ## What Makes Allusion Different?
 
