@@ -1,16 +1,155 @@
 import streamlit as st
 from allusion import AllusionAgent, save_report
 
+LOGO_PATH = "assets/allusion_logo.png"
+
 st.set_page_config(
     page_title="Allusion",
-    page_icon="🔎",
+    page_icon="🌿",
     layout="wide",
 )
 
-st.title("Allusion")
-st.caption(
-    "Discover emerging ideas, hidden patterns, and underexplored research signals."
+st.markdown(
+    """
+    <style>
+    .stApp {
+        background:
+            radial-gradient(circle at top left, rgba(173, 205, 142, 0.18), transparent 35%),
+            radial-gradient(circle at top right, rgba(212, 184, 121, 0.14), transparent 30%),
+            linear-gradient(135deg, #061512 0%, #0B1F19 45%, #11130F 100%);
+        color: #F2EBCB;
+    }
+
+    [data-testid="stSidebar"] {
+        background: linear-gradient(180deg, #071712 0%, #10251D 100%);
+        border-right: 1px solid rgba(212, 184, 121, 0.25);
+    }
+
+    h1, h2, h3 {
+        color: #F5EBC7;
+        letter-spacing: 0.03em;
+    }
+
+    .hero-card {
+    padding: 2rem;
+    border-radius: 24px;
+    background: rgba(10, 31, 25, 0.72);
+    border: 1px solid rgba(212, 184, 121, 0.35);
+
+    box-shadow:
+        0 0 20px rgba(173, 205, 142, 0.12),
+        0 0 50px rgba(173, 205, 142, 0.08),
+        0 0 90px rgba(212, 184, 121, 0.05);
+}
+
+    .hero-title {
+        font-size: 3.2rem;
+        font-weight: 700;
+        letter-spacing: 0.22em;
+        color: #F4EBC9;
+        margin-bottom: 0.25rem;
+    }
+
+    .hero-subtitle {
+        color: #B6D28D;
+        font-size: 1.05rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+    }
+
+    .hero-text {
+        color: #D8CFAC;
+        font-size: 1.05rem;
+        margin-top: 1rem;
+        line-height: 1.7;
+    }
+
+    .metric-card {
+        padding: 1rem;
+        border-radius: 18px;
+        background: rgba(17, 44, 34, 0.65);
+        border: 1px solid rgba(173, 205, 142, 0.25);
+    }
+
+    .stButton > button {
+        background: linear-gradient(135deg, #B6D28D 0%, #D4B879 100%);
+        color: #071712;
+        border: none;
+        border-radius: 14px;
+        font-weight: 700;
+        padding: 0.7rem 1.4rem;
+    }
+
+    .stTextInput input {
+    background-color: rgba(8, 25, 20, 0.95);
+    color: #F5EBC7;
+    border: 1px solid rgba(212, 184, 121, 0.55);
+    border-radius: 14px;
+
+    box-shadow:
+        0 0 10px rgba(182, 210, 141, 0.15),
+        0 0 20px rgba(182, 210, 141, 0.10),
+        0 0 40px rgba(212, 184, 121, 0.08);
+
+    transition: all 0.3s ease;
+}
+
+.stTextInput input:focus {
+    border: 1px solid rgba(182, 210, 141, 0.9);
+
+    box-shadow:
+        0 0 15px rgba(182, 210, 141, 0.35),
+        0 0 35px rgba(182, 210, 141, 0.20),
+        0 0 70px rgba(212, 184, 121, 0.15);
+}
+
+    .stTabs [data-baseweb="tab-list"] {
+        gap: 8px;
+    }
+
+    .stTabs [data-baseweb="tab"] {
+        background-color: rgba(17, 44, 34, 0.7);
+        border-radius: 12px;
+        color: #D8CFAC;
+        padding: 10px 18px;
+    }
+
+    .stTabs [aria-selected="true"] {
+        background: linear-gradient(135deg, rgba(182, 210, 141, 0.35), rgba(212, 184, 121, 0.28));
+        color: #F5EBC7;
+    }
+
+    a {
+        color: #B6D28D !important;
+    }
+
+    .small-muted {
+        color: #9CA98B;
+        font-size: 0.9rem;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
 )
+
+col_logo, col_title = st.columns([1, 4])
+
+with col_logo:
+    st.image(LOGO_PATH, width=420)
+
+with col_title:
+    st.markdown(
+        """
+        <div class="hero-card">
+            <div class="hero-title">ALLUSION</div>
+            <div class="hero-subtitle">Research Scout for Emerging Ideas</div>
+            <div class="hero-text">
+                Discover public sources, trace weak signals, and trailblaze your projects
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
 with st.sidebar:
     st.header("Search Settings")
@@ -37,9 +176,13 @@ with st.sidebar:
     )
 
     verbose = st.checkbox(
-        "Verbose mode",
+        "Research Debug Mode",
         value=False,
     )
+
+st.markdown("## Discover Hidden Signals")
+
+st.caption("Emerging Ideas • Hidden Patterns • Project Inspiration")
 
 topic = st.text_input(
     "Research topic",
@@ -68,10 +211,22 @@ if run:
 
         st.success(f"Report saved to: {path}")
 
+        st.markdown(
+            f"""
+            <div class="metric-card">
+                <strong>Sources collected:</strong> {len(report.sources)} &nbsp; | &nbsp;
+                <strong>Niche signals:</strong> {len(report.niche_signals)} &nbsp; | &nbsp;
+                <strong>Themes:</strong> {len(report.themes)} &nbsp; | &nbsp;
+                <strong>Allusions:</strong> {len(report.allusions)}
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
         tab1, tab2, tab3, tab4 = st.tabs(
             [
                 "Report",
-                "Observations",
+                "Signal Map",
                 "Ranked Sources",
                 "Raw Markdown",
             ]
@@ -81,18 +236,21 @@ if run:
             st.markdown(report.markdown)
 
         with tab2:
-            for obs in report.observations:
-                st.subheader(obs.title)
-                st.write(f"**Category:** {obs.category}")
-                st.write(f"**Confidence:** {obs.confidence:.2f}")
-                st.write(f"**Insight:** {obs.insight}")
+            st.subheader("What Looks Niche")
+            for signal in report.niche_signals:
+                st.write(f"- {signal}")
 
-                if obs.evidence:
-                    st.write("**Evidence:**")
-                    for item in obs.evidence:
-                        st.write(f"- {item}")
+            st.divider()
 
-        st.divider()
+            st.subheader("Repeated Themes")
+            for theme in report.themes:
+                st.write(f"- {theme}")
+
+            st.divider()
+
+            st.subheader("Allusions in the Machine")
+            for item in report.allusions:
+                st.write(f"- {item}")
 
         with tab3:
             ranked = sorted(
